@@ -1,0 +1,3 @@
+AktID;Name;Position;Institution;Label;InstitutionList;LocationList;PubMedSearch;ORCID
+10;Max Mustermann;Leiter;Institut für Medizin XYZ;Bakteriologe;Uniklinik Münster, Hannover Medical School;Münster, Hannover;Mustermann M;
+20;Bryan L Lewis;;Technical University of Virginia;Epidemiologe;Technical University of Virginia, Virginia Tech;Virginia, Arlington, Blacksburg;"((AUTH:""Bryan Lewis"") OR (AUTH:""Lewis B"" AND Virginia)) NOT AUTH:""Lewis BB"" NOT AUTH:""Lewis BA"" NOT AUTH:""Lewis BG"" NOT AUTH:""Lewis BM""NOT AUTH:""Lewis BD"" NOT AUTH:""Lewis BF""";;
