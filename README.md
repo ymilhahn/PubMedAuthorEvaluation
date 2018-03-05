@@ -1,7 +1,9 @@
 PubMed Author Evaluation
 ========================
+[![DOI](https://zenodo.org/badge/123303534.svg)](https://zenodo.org/badge/latestdoi/123303534)
 
-This is a selection of Python scripts that enable an automatic search of biomedical publications followed by extraction and processing of information about their authors using the [PubMed](https://europepmc.org/) database.
+
+A selection of Python scripts for automatic search of biomedical publications followed by extraction and processing of information about their authors using the [PubMed](https://europepmc.org/) database.
 
 ## Background
 

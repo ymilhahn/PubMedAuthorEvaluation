@@ -1,7 +1,8 @@
 PubMed Author Evaluation
 ========================
+[![DOI](https://zenodo.org/badge/123303534.svg)](https://zenodo.org/badge/latestdoi/123303534)
 
-Dies ist eine Sammlung von Python-Scripts, die mit Mithilfe von [PubMed](https://europepmc.org/) biomedizinische Publikationen durchsucht und Informationen über Autoren extrahiert und aufbereitet.
+Eine Sammlung von Python-Scripts, die mit Hilfe von [PubMed](https://europepmc.org/) biomedizinische Publikationen durchsucht und Informationen über Autoren extrahiert und aufbereitet.
 
 ## Hintergrund
 
