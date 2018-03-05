@@ -1,136 +1,132 @@
 PubMed Author Evaluation
 ========================
 
-Dies ist eine Sammlung von Python-Scripts, die mit Mithilfe von [PubMed](https://europepmc.org/) biomedizinische Publikationen durchsucht und Informationen über Autoren extrahiert und aufbereitet.
+This is a selection of Python scripts that enable an automatic search of biomedical publications followed by extraction and processing of information about their authors using the [PubMed](https://europepmc.org/) database.
 
-## Hintergrund
+## Background
 
-Ziel des Projektes ist es individuelle Akteure in öffentlichen, wissenschaftsnahen oder wissenschaftsassoziierten Diskursen bezogen auf ihre Stellung im Wissenschaftssystem näher zu charakterisieren, insbesondere zu ermitteln:
+The goal of this project is to identify individual actors in the public debate of scientific issues and to determine their position within science. It specifically aims to establish:
 
-1. ob ein Akteur als ***contributing expert*** eines bestimmten **Themenfeldes** gelten kann und dort publiziert hat
-2. ob ein Akteur als ***contributing expert*** ausgewiesen ist, allerdings **nicht** in dem jeweils interessierenden **Themenfeld** publiziert hat
+1. whether an actor can be considered a ***contributing expert*** in a given **subject area** as demonstrated through published research papers
+2. whether an actor can be considered a ***contributing expert***, but has **not** published research papers in a given **subject area**
 
 
-## Installation und Ausführung
+## Installation and execution
 
-Siehe: [Python Installation und Ausführung](docs/python/Installation_und_Ausfuehrung.md)
+See: [Python Installation und Ausführung](docs/python/Installation_und_Ausfuehrung.md) (german)
 
-## Ablauf
+## Procedure
 
 ![Flow Chart Grafik](docs/flow-chart.jpg)
 
-#### Anpassung der Eingabedateien
-- Hinzufügen eines Themas (topic.csv)
-- Hinzufügen der Akteure in CSV-Liste
+#### Manual: Adjustment of input files
+- Add topics (`topic.csv`)
+- Add actors in CSV file
 
-#### Ausführung: get_actors_publications.py
-- Sammelt alle Publikationen jedes Akteurs (via PubMed)
-- Filtert Publikationen (via journal_ranking.csv)
-- Erstellt Autordatei für jeden Akteur
-	- eine Zeile = eine Publikation
+#### Automatic via get_actors_publications.py
+- Collects all publications for every actor (via PubMed)
+- Filters publications (via `journal_ranking.csv`)
+- Generates author file for every actor
+	- one row = one publication
 
-#### Überprüfung der Ausgabe
-- Erstellte Autordateien überprüfen
-	- insbesondere `Active` und `Authorship Confidence` Werte
-- Ggf. Eingabedateien anpassen
-	- Suchstring für Thema/Akteure anpassen
-	- Falls automatische Autorschaftsbewertung
-		- `Location` und `Institution` Liste verbessern
-	- Erneute Ausführung von `get_actors_publications.py`
+#### Manual: Review of output
+- Review generated author files
+	- Particularly the values `Active` and `Authorship Confidence`
+- Adjust input files if necessary
+	- Adjust search string for topic/actors
+	- In case of automatic authorship rating: improve lists `Location` and `Institution`
+	- On changes: Execute `get_actors_publications.py` again
 
-#### Ausführung: calc_authors_results.py
-- Nutzt alle Autordateien
-- Erstellt Gesamtliste mit allen Autoren und deren Metriken
-	- eine Zeile = ein Autor
+#### Automatic via calc_authors_results.py
+- Uses all author files
+- Generates complete list with all authors and their metrics
+	- one row = one author
 
-Beide Scripts fragen beim Aufruf direkt nach einem Thema (siehe topics.csv) und ob die Publikationen via Name oder [ORCID](https://orcid.org/) der Autoren abgerufen werden soll.
+Both scripts ask for the topic (see `topics.csv`) upon launch and whether publications should be retrieved using the name or [ORCID](https://orcid.org/) of the author.
 
-## Ein- und Ausgaben
+## In- and output
 
-### *INPUT*-Ordner
+### *INPUT* folder
 
-Der *INPUT*-Ordner enthält alle Akteurlisten und das Journal Ranking.
-Zudem ist die Datei "topics.csv" sehr wichtig, sie ist sozusagen die Konfigurationsdatei der Scripts.
+The *INPUT* folder contains all lists with actors and the journal ranking. Of importance here is the file `topics.csv` as it is the so-called configuration file for the scripts.
 
 #### topics.csv
 
-Die oberste Spalte gibt die Feldbezeichnung an.
-Jede darauffolgende Zeile ist einem Thema zugeordnet.
+File format: csv  
+First row: column names  
+Following rows: **one row = one topic**
 
-- `short` - Abkürzung für das Thema, dient zum Aufruf der Scripts.
+- `short` – an acronym for the topic, used upon script launch
 
-- `search string` - Der Suchstring ist das Mittel um zu überprüfen, ob eine Publikation in einem bestimmten Themenbereich veröffentlicht wurde.
-Hierzu wird eine Suche bei PubMed gestartet, die die Publikations-ID und den Suchstring enthält. (Siehe Code für Details)
+- `search string` – search string is the way to check whether a research paper was published in a specific subject area. A search in PubMed is initiated, which contains the publication ID and this search string. (see code for further details)
 
-- `actors list file` - Dateiname der Akteurlisten zum jeweiligen Thema
+- `actors list file` – file name of the lists of actors in a given subject area
 
 
-#### Akteurlisten
+#### Lists of actors
 
-Die Akteurlisten sind CSV-Dateien mit
+File format: csv  
+First row: column names  
+Following rows: **one row = one actor**
 
-- `AktID` - eindeutige ID für den Autor
-- `Name` - Klarname der Person
-- `Position` (optional)
-- `Institution` (optional)
-- `Label` (optional, z.B. Arzt, Experte)
-
-Daten für die Suche:
-
-- `InstitutionList` - Eine Liste der Institutionen an denen der Akteur publiziert hat
-- `LocationList` - Ein Liste der bekannten Städte/Länder in denen der Akteur publiziert hat
-- `PubMedSearch` - der Suchstring um die Person bei PubMed zu identifizieren. Einfacher String oder [komplexer Query](https://europepmc.org/Help#mostofsearch).
+- `AktID` – unique ID of an actor
+- `Name` – precise name of a person
+- `Position` (optional)
+- `Institution` (optional)
+- `Label` (optional, e.g. doctor, expert, researcher)
+- `InstitutionList` – list of institutions at which the actor published research papers (for automatic authorship evaluation)
+- `LocationList` – list of known cities/countries in which the actor published research papers (for automatic authorship evaluation)
+- `PubMedSearch` – search string used to identify person in PubMed. Simple string or [complex query](https://europepmc.org/Help#mostofsearch).
 
 
 #### journal-ranking.csv
-Export von [Scimago Journal & Country Rank](http://www.scimagojr.com/journalrank.php)
+Export from [Scimago Journal & Country Rank](http://www.scimagojr.com/journalrank.php)
 
 
-### *OUTPUT*-Ordner
+### *OUTPUT* folder
 
-- author_[topic] Unterordner: Enthält alle Autordateien zu einem Thema.
+- `author_[topic]/` subfolder – contains all author files of the specified topic.
 
-- result_[topic].csv: Enthält die entgültigen Geasmtauswertung für alle Autoren eines Themas.
+- `result_[topic].csv` – contains final evaluation for all authors of a the specified topic.
 
 
 #### Autordateien
 
-Die oberste Spalte gibt die Feldbezeichnung an.
-Jede darauf folgende Zeile ist einer Publikation zugeordnet.
+File format: csv  
+First row: column names  
+Following rows: **one row = one publication**
 
-- `Active` - 0 oder 1. Entscheidet ob Publikation in die Gesamtauswertung des Themas miteinbezogen wird.
-- `Authorship Confidence` - Resultat der automatischen Autorschaftsbewertung (siehe unten *Authorship Confidence*)
-- `ID (LINK)` - ID der Publikation in der PubMed Datenbank. Verlinkt, kann mit Strg+Klick geöffnet werden.
-- `Topic` - Falls die Publikation dem Thema (über den Themen-Suchstring) zugeordert wurden konnte, wird hier die Abkürzung des Themas vermerkt.
-- `Title` - Titel der Publikation
-- `Citations` - Anzahl der Zitierungen durch andere Publikationen
-- `Date` - Datum der Veröffentlichung
-- `Author Position` - first/middle/last
-- `Co-Author count` - Anzahl der Co-Autoren
-
-
-## Automatische Autorschaftsbewertung
-
-Da die Daten in der PubMed Datenbank sehr inkonsistent sind kann sich der Algorithmus nicht immer sicher sein ob die betrachtete Person tatsächlich Autor der gefundene Publikation ist oder es z. B. eine Person mit ähnlichem Kürzel ist.
-
-Aus diesem Grund ermöglicht der `get_actors_publications.py` Script eine automatische Bewertung bzgl. der Autorschaft. Diese kann beim Aufruf an oder ausgeschaltet werden.
-
-Es gibt einige Indizien die das Vertrauen in die Autorschaft erhöhen. Falls eines zutrifft wird der Zahlenwert auf den Confidence-Wert addiert.
-
-- `+0.4` - Vorname stimmt überein
-- `+0.3` - eine Institution stimmt überein
-- `+0.2` - eine Location stimmt überein
-
-Die Daten Institution und Location werden über die Autorenliste gespeist. Umso mehr Daten sich dort befinden um so aussagekräftiger ist der Confidence-Wert.
-
-Der Confidence-Wert hat auch einen direkten Einfluss auf den "Active"-Wert. Ist die Authorship Confidence = 0, so wird Active auf = 0 gesetzt.
-Hier sollte dann **unbedingt noch einmal überprüft werden** ob nicht doch eine Autorschaft besteht.
-Ist die betrachtete Person tatsächlich Autor der Publikation, so sollten Institution und Location zur Autorliste hinzugefügt werden.
-So wird beim nächsten Durchlauf des Scripts ein besserer Confidence-Wert gewährleistet.
+- `Active` – 0 or 1. Controls whether publication will be considered in the complete evaluation of a subject area.
+- `Authorship Confidence` – Result of an automatic authorship evaluation. (see below)
+- `ID (LINK)` – ID of publication in PubMed database. It is linked and can be opened with Ctrl+Click.
+- `Topic` – Acronym of subject area: if the publication could be assigned to the subject area (via subject area search string).
+- `Title` – Title of publication
+- `Citations` – Number of citations in other publications
+- `Date` – Date of publication
+- `Author Position` – first/middle/last
+- `Co-Author count` – Number of coauthors
 
 
-# Lizenz
-- **Conception:** Prof. Dr. Markus Lehmkuhl (KIT & FU Berlin), Evgeniya Boklage M. A. (FU Berlin)
+## Automatic authorship evaluation
+
+Because the data in the PubMed databank are inconsistent, the algorithm cannot always assure that the person (the actor) under consideration is, in fact, the author of the found research paper or it is, for instance, a person with similar initials.
+
+To address this issues, the script `get_actors_publications.py` facilitates an automatic evaluation of the authorship. This can be turned on or off upon launch.
+
+There are indicators that increase the confidence over the authorship.
+When applies, the number will be added to the `Authorship Confidence` value.
+
+- `+0.4` – Firstname matches
+- `+0.3` – an institution matches
+- `+0.2` – a location matches
+
+The data about *institution* and *location* will be fed from the list of authors. The more data is available in the list, the more significant is the `Authorship Confidence` value.
+
+The `Authorship Confidence` value has a direct impact on the `Active` value. Should the `Authorship Confidence` be equal zero, so the `Active` will also be set to zero. In this case, it is necessary **to review the authorship manually** again. Should the person under consideration be the author of publication, it is necessary to add *institution* and *location* to the list of actors. This ensures a better `Authorship Confidence` value in the next run of the script.  
+
+
+# License
+- **Conception:** Prof. Dr. Markus Lehmkuhl (KIT & FU Berlin), Dr. Evgeniya Boklage (FU Berlin)
 - **Implementation:** Yannick Milhahn (TU Berlin & FU Berlin)
 
 Distributed under GPLv3 License.
