@@ -2,7 +2,6 @@ PubMed Author Evaluation
 ========================
 [![DOI](https://zenodo.org/badge/123303534.svg)](https://zenodo.org/badge/latestdoi/123303534)
 
-
 A selection of Python scripts for automatic search of biomedical publications followed by extraction and processing of information about their authors using the [PubMed](https://europepmc.org/) database.
 
 ## Background
@@ -21,17 +20,17 @@ See: [Python Installation und Ausführung](docs/python/Installation_und_Ausfuehr
 
 ![Flow Chart Grafik](docs/flow-chart.jpg)
 
-#### Manual: Adjustment of input files
+#### 1. Manual: Adjustment of input files
 - Add topics (`topic.csv`)
 - Add actors in CSV file
 
-#### Automatic via get_actors_publications.py
+#### 2. Automatic via get_actors_publications.py
 - Collects all publications for every actor (via PubMed)
 - Filters publications (via `journal_ranking.csv`)
 - Generates author file for every actor
 	- one row = one publication
 
-#### Manual: Review of output
+#### 3. Manual: Review of output
 - Review generated author files
 	- Particularly the values `Active` and `Authorship Confidence`
 - Adjust input files if necessary
@@ -39,7 +38,7 @@ See: [Python Installation und Ausführung](docs/python/Installation_und_Ausfuehr
 	- In case of automatic authorship rating: improve lists `Location` and `Institution`
 	- On changes: Execute `get_actors_publications.py` again
 
-#### Automatic via calc_authors_results.py
+#### 4. Automatic via calc_authors_results.py
 - Uses all author files
 - Generates complete list with all authors and their metrics
 	- one row = one author
@@ -127,7 +126,7 @@ The data about *institution* and *location* will be fed from the list of authors
 The `Authorship Confidence` value has a direct impact on the `Active` value. Should the `Authorship Confidence` be equal zero, so the `Active` will also be set to zero. In this case, it is necessary **to review the authorship manually** again. Should the person under consideration be the author of publication, it is necessary to add *institution* and *location* to the list of actors. This ensures a better `Authorship Confidence` value in the next run of the script.  
 
 
-# License
+## License
 - **Conception:** Prof. Dr. Markus Lehmkuhl (KIT & FU Berlin), Dr. Evgeniya Boklage (FU Berlin)
 - **Implementation:** Yannick Milhahn (TU Berlin & FU Berlin)
 

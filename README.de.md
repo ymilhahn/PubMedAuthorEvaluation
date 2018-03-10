@@ -20,17 +20,17 @@ Siehe: [Python Installation und Ausführung](docs/python/Installation_und_Ausfue
 
 ![Flow Chart Grafik](docs/flow-chart.jpg)
 
-#### Manuell: Anpassung der Eingabedateien
+#### 1. Manuell: Anpassung der Eingabedateien
 - Hinzufügen der Themen (`topic.csv`)
 - Hinzufügen der Akteure in CSV-Liste
 
-#### Automatisch via get_actors_publications.py
+#### 2. Automatisch via get_actors_publications.py
 - Sammelt alle Publikationen jedes Akteurs (via PubMed)
 - Filtert Publikationen (via `journal_ranking.csv`)
 - Erstellt Autordatei für jeden Akteur
 	- eine Zeile = eine Publikation
 
-#### Manuell: Überprüfung der Ausgabe
+#### 3. Manuell: Überprüfung der Ausgabe
 - Erstellte Autordateien überprüfen
 	- insbesondere `Active` und `Authorship Confidence` Werte
 - Ggf. Eingabedateien anpassen
@@ -38,7 +38,7 @@ Siehe: [Python Installation und Ausführung](docs/python/Installation_und_Ausfue
 	- Falls automatische Autorschaftsbewertung: `Location` und `Institution` Liste verbessern
 	- Bei Änderungen: erneute Ausführung von `get_actors_publications.py`
 
-#### Automatisch via calc_authors_results.py
+#### 4. Automatisch via calc_authors_results.py
 - Nutzt alle Autordateien
 - Erstellt Gesamtliste mit allen Autoren und deren Metriken
 	- eine Zeile = ein Autor
@@ -131,7 +131,7 @@ Ist die betrachtete Person tatsächlich Autor der Publikation, so sollten *Insti
 So wird beim nächsten Durchlauf des Scripts ein besserer `Authorship Confidence`-Wert gewährleistet.
 
 
-# Lizenz
+## Lizenz
 - **Conception:** Prof. Dr. Markus Lehmkuhl (KIT & FU Berlin), Dr. Evgeniya Boklage (FU Berlin)
 - **Implementation:** Yannick Milhahn (TU Berlin & FU Berlin)
 
